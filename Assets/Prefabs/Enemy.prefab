@@ -129,6 +129,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c2e93ba1db891345b29bb661f4b5373, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  explosionPrefab: {fileID: 9146601838217232309, guid: c83dab6c21e61774d955cb175acd6c35, type: 3}
   moveSpeed: 5
 --- !u!65 &-7432012374332335207
 BoxCollider:

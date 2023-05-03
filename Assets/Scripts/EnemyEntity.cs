@@ -4,6 +4,12 @@ using UnityEngine;
 
 public class EnemyEntity : MonoBehaviour
 {
+    public GameObject explosionPrefab; // Parçacýk efekti için hazýr bir prefab oluþturulmuþsa, buraya sürükleyip býrakabilirsiniz.
+
+    public void OnDestroy()
+    {
+        Instantiate(explosionPrefab, transform.position, transform.rotation);
+    }
     public float moveSpeed = 5f;    // Düþmanýn hareket hýzý
 
     private Vector3 startPosition;  // Düþmanýn baþlangýç pozisyonu

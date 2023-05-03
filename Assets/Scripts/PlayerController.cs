@@ -8,9 +8,10 @@ public class PlayerController : MonoBehaviour
     public float moveSpeed = 5f; // Karakterin hareket hýzý
     private float leftLimit = -3f; // Hareketin sol sýnýrý
     private float rightLimit = 3f; // Hareketin sað sýnýrý
-
+    public bool canMove=false;
     void Update()
     {
+        if (canMove == false) return;
         if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Moved) // Parmak hareket ettiðinde
         {
             Vector2 touchDeltaPosition = Input.GetTouch(0).deltaPosition; // Parmak pozisyonunu al

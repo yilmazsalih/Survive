@@ -9,10 +9,11 @@ public class EnemyController : MonoBehaviour
     public Transform spawnStartPoint;     // Düþmanlarýn oluþturulmaya baþlayacaðý pozisyon
     public Transform spawnEndPoint;       // Düþmanlarýn oluþturulma noktasý
     private float spawnTimer = 0f;        // Oluþturma zamanlayýcýsý
-    
+    public bool canSpawn = false;
     // Her çerçevede çaðrýlan "Update" fonksiyonu
     void Update()
     {
+        if (canSpawn == false) return;
         // Belirli aralýklarla düþman oluþturmak için bir zamanlayýcý kullanýyoruz
         spawnTimer += Time.deltaTime;
 
