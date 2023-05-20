@@ -4,15 +4,23 @@ using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
-    public GameObject enemyPrefab;        // Oluþturulacak düþmanýn önceden hazýrlanmýþ prefab'ý
+    public EnemyEntity enemyPrefab;        // Oluþturulacak düþmanýn önceden hazýrlanmýþ prefab'ý
     public float spawnInterval = 3f;      // Düþmanlarýn oluþturulma aralýðý
     public Transform spawnStartPoint;     // Düþmanlarýn oluþturulmaya baþlayacaðý pozisyon
     public Transform spawnEndPoint;       // Düþmanlarýn oluþturulma noktasý
     private float spawnTimer = 0f;        // Oluþturma zamanlayýcýsý
     public bool canSpawn = false;
+    public int initEnemyCount;
+    public GameObject success;
+    private int enemyCount;
     // Her çerçevede çaðrýlan "Update" fonksiyonu
+    private void Awake()
+    {
+        enemyCount =initEnemyCount* PlayerPrefs.GetInt("level", 1);
+    }
     void Update()
     {
+        
         if (canSpawn == false) return;
         // Belirli aralýklarla düþman oluþturmak için bir zamanlayýcý kullanýyoruz
         spawnTimer += Time.deltaTime;
@@ -24,6 +32,15 @@ public class EnemyController : MonoBehaviour
             spawnTimer = 0f;  // Zamanlayýcýyý sýfýrlýyoruz
         }
     }
+    public void OnEnemyDead()
+    {
+        enemyCount--;
+        if(enemyCount <= 0)
+        {
+            canSpawn = false;
+            success.SetActive(true);
+        }
+    }
 
     // Yeni bir düþman oluþturmak için çaðrýlan fonksiyon
     void SpawnEnemy()
@@ -32,6 +49,8 @@ public class EnemyController : MonoBehaviour
         var Enemy= Instantiate(enemyPrefab, transform);
         Enemy.transform.position = spawnPosition;
         Enemy.transform.localEulerAngles = Vector3.zero;
+        Enemy.SetDependencies(OnEnemyDead);
+        
     }
 
     // Belirli iki nokta arasýnda rastgele bir nokta döndüren fonksiyon

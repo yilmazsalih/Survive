@@ -9,6 +9,7 @@ public class BarrierController : MonoBehaviour
     public float startingHealth = 50; // bariyerin baþlangýçtaki can miktarý
     public float currentHealth; // bariyerin mevcut can miktarý
     public Image image;
+    public GameObject failScreen;
 
     void Start()
     {
@@ -26,6 +27,7 @@ public class BarrierController : MonoBehaviour
             image.fillAmount = currentHealth / startingHealth;
             if (currentHealth <= 0) // bariyerin caný sýfýr olduðunda bariyeri yok eder
             {
+                failScreen.SetActive(true);
                 Destroy(gameObject);
             }
         }
