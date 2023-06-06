@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class EnemyController : MonoBehaviour
@@ -10,13 +11,21 @@ public class EnemyController : MonoBehaviour
     public Transform spawnEndPoint;       // Düþmanlarýn oluþturulma noktasý
     private float spawnTimer = 0f;        // Oluþturma zamanlayýcýsý
     public bool canSpawn = false;
-    public int initEnemyCount;
+    public int baseEnemyCountMultiplier;
     public GameObject success;
     private int enemyCount;
+    private int initEnemyCount;
+    public TMP_Text levelProgressText;
     // Her çerçevede çaðrýlan "Update" fonksiyonu
     private void Awake()
     {
-        enemyCount =initEnemyCount* PlayerPrefs.GetInt("level", 1);
+        enemyCount =baseEnemyCountMultiplier* PlayerPrefs.GetInt("level", 1);
+        initEnemyCount = enemyCount;
+        UpdateLevelProgress();
+    }
+    private void UpdateLevelProgress()
+    {
+        levelProgressText.text = $"{enemyCount}/{initEnemyCount}";
     }
     void Update()
     {
@@ -40,6 +49,7 @@ public class EnemyController : MonoBehaviour
             canSpawn = false;
             success.SetActive(true);
         }
+        UpdateLevelProgress();
     }
 
     // Yeni bir düþman oluþturmak için çaðrýlan fonksiyon

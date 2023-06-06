@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -9,9 +10,11 @@ public class GameManager : MonoBehaviour
     public PlayerController playerController;
     public Fire fire;
     public EnemyController enemyController;
+    public TMP_Text levelText;
     private void Awake()
     {
         level= PlayerPrefs.GetInt("level",1);
+        levelText.text = "Level: " + level;
     }
     public void OnStart()
     {
